@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+    <title>模板语法</title>
+</head>
+
+<body>
+    <h1>模板语法</h1>
+    <hr>
+    <div id="app1">
+        <span>Message: {{ msg }}</span>
+        <span v-once>这个将不会改变: {{ msg }}</span>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app1',
+            data: {
+                msg: "哈哈哈哈"
+            }
+        })
+    </script>
+    <hr>
+
+    <div id="app2">
+        <p>Using mustaches: {{ rawHtml }}</p>
+        <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app2',
+            data: {
+                rawHtml: '<span style="color:red">这里应该是红色</span>'
+            }
+        })
+    </script>
+    <hr>
+
+    <h1>v-on 事件监听器</h1>
+    <div id="app3">
+        <p>Using mustaches: {{ rawHtml }}</p>
+        <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app3',
+            data: {
+                rawHtml: '<span style="color:red">这里应该是红色</span>'
+            }
+        })
+    </script>
+    <hr>
+</body>
+
+</html>

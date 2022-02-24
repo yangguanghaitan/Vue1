@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../assets/js/vue.js"></script>
+    <title>Vue 实例</title>
+</head>
+
+<body>
+    <h1>Vue 实例</h1>
+    <hr>
+    <div id="app1">
+        {{a}}
+    </div>
+    <script type="text/javascript">
+        var data = { a: 1 }
+        var vm = new Vue({
+            el: '#app1',
+            data: data
+        })
+        vm.a = "io"
+        vm.$watch('a', function (newValue, oldValue) {
+            console.log(newValue, oldValue)
+        })
+        vm.a = "111"
+    </script>
+    <hr>
+
+    <div id="app">
+        <p>{{ foo }}</p>
+        <!-- 这里的 `foo` 不会更新！ -->
+        <button v-on:click="foo = 'baz'">Change it</button>
+    </div>
+    <script type="text/javascript">
+        var obj = {
+            foo: 'bar'
+        }
+
+        Object.freeze(obj)
+
+        new Vue({
+            el: '#app',
+            data: obj
+        })
+    </script>
+    <hr>
+    <script>
+        new Vue({
+            data: {
+                a: 1
+            },
+            created: function () {
+                // `this` 指向 vm 实例
+                console.log('a is: ' + this.a)
+            }
+        })
+    </script>
+    <hr>
+    
+</body>
+
+</html>
