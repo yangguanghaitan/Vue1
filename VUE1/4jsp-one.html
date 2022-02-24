@@ -1,0 +1,162 @@
+<html lang="en">
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="./assets/js/vue.js"></script>
+    <title>技术胖的例子</title>
+</head>
+
+<body>
+    <h1>v-on 事件监听器</h1>
+    <div id="app3">
+        分数:{{count}}
+        <button v-on:click="jiafa">加分</button>
+        <button @click="jianfa">减分</button>
+        <input type="text" v-on:keyup.enter="onEnter" v-model="ss">
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app3',
+            data: {
+                count: 1,
+                ss: 11
+            },
+            methods: {
+                jiafa: function () {
+                    this.count++
+                },
+                jianfa: function () {
+                    this.count--
+                },
+                onEnter: function () {
+                    this.count = this.count + parseInt(this.ss)
+                }
+            }
+        })
+    </script>
+
+    <hr>
+    <h1>v-model指令</h1>
+    <div id="app4">
+        <p>原始文本信息：{{message}}</p>
+        <h3>文本框</h3>
+        <p>v-model:<input type="text" v-model="message"></p>
+        <p>v-model lazy:<input type="text" v-model.lazy="message"></p>
+        <p>v-model number:<input type="text" v-model.number="message"></p>
+        <p>v-model trim:<input type="text" v-model.trim="message"></p>
+
+        <p>绑定文本域 :<textarea cols="30" rows="3" v-model="message"></textarea></p>
+
+        <h3>多选按钮绑定一个值</h3>
+        <input type="checkbox" id="isTrue" v-model="istrue6">
+        <label for='isTrue'>{{istrue6}}</label>
+
+        <h3>多选绑定一个数组</h3>
+        <p>
+            <input type="checkbox" id="JSPang" value="111" v-model="web_Names">
+            <label for="JSPang">JSPang</label><br />
+            <input type="checkbox" id="Panda" value="222" v-model="web_Names">
+            <label for="Panda">Panda</label><br />
+            <input type="checkbox" id="PanPan" value="333" v-model="web_Names">
+            <label for="PanPan">PanPan</label>
+        <p>{{web_Names}}</p>
+        </p>
+
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app4',
+            data: {
+                message: "这是一个消息",
+                istrue6: false,
+                web_Names: []
+            }
+        })
+    </script>
+
+    <hr>
+
+    <h1>v-bind指令</h1>
+    <div id="app5">
+        <img v-bind:src="imgSrc" width="200px">
+        <a :href="jspang" target="_blank">技术胖</a>
+        <a :href="baidu" target="_blank">百度1</a>
+        <a v-bind:href="baidu" target="_blank">百度2</a>
+
+        <hr>
+        <div v-bind:class="className">1、绑定classA</div>
+        <div :class="className">1、绑定classA</div>
+
+        <div v-bind:class="{classA:isOk}">2、绑定class中的判断</div>
+        <div :class="{classA:isOk}">2、绑定class中的判断</div>
+
+        <div v-bind:class="[classA,classB]">3、绑定class中的数组</div>
+        <div :class="[classA,classB]">3、绑定class中的数组</div>
+
+        <div v-bind:class="isOk?classA:classB">4、绑定class中的三元表达式判断</div>
+        <div :class="isOk?classA:classB">4、绑定class中的三元表达式判断</div>
+
+        <hr>
+        <input type="checkbox" id="isTrue" v-model="isOk">
+        <label for='isTrue'>isOk={{isOk}}</label> 
+
+        <hr>
+        <div :style="{color:red,fontSize:font}">5、绑定style</div>
+        <div v-bind:style="styleObject">6、用对象绑定style样式</div>
+        <hr>
+    </div>
+
+    <style>
+        .classA{
+            color:red
+        }
+        .classB{
+            font-size: 150%;
+        }
+
+    </style>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app5',
+            data: {
+                imgSrc:'./assets/pexels-radu-florin-3717080.jpg',
+                jspang:'http://jspang.com',
+                baidu:'http://www.baidu.com',
+                className:'classA',
+                classA:'classA',
+                classB:'classB',
+                isOk:false,
+                red:'red',
+                font:'30px',
+                styleObject:{
+                    fontSize:'24px',
+                    color:'green'
+                }
+            }
+        })
+    </script>
+
+    <hr>
+
+
+    <h1>v-pre & v-cloak & v-once 案例</h1>
+    <div id="app6">
+        <div v-pre>{{message}}</div>
+        <div v-once>第一次绑定的值：{{message}}</div>
+        <div><input type="text" v-model="message"></div>
+    </div>
+
+    </style>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app6',
+            data: {
+                message:'hello Vue!'
+            }
+        })
+    </script>
+
+</body>
+
+</html>

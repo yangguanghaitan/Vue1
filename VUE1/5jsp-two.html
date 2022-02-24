@@ -1,0 +1,415 @@
+<html lang="en">
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="./assets/js/vue.js"></script>
+    <title>【第二季】Vue2.0视频教程-全局API(共9集)</title>
+</head>
+
+<body>
+
+
+
+    <h1>自定义指令</h1>
+    <div id="app1">
+        <div v-jspang="color6" id="demo">
+            {{num}}
+        </div>
+        <div>
+            <button @click="add">ADD</button>
+        </div>
+    </div>
+    <script type="text/javascript">
+        Vue.directive('jspang', function (el, binding, vnode) {
+            el.style = 'color:' + binding.value;
+        });
+        var vm = new Vue({
+            el: '#app1',
+            data: {
+                num: 1,
+                color6: 'red'
+            },
+            methods: {
+                add: function () {
+                    this.num = this.num + 2
+                }
+            },
+
+        })
+    </script>
+
+    <h1>自定义指令有五个生命周期(钩子函数)</h1>
+    <div id="app2">
+        <div v-jspang1="color6" id="demo">
+            {{num}}
+        </div>
+        <div>
+            <button @click="add">ADD</button>
+        </div>
+        <p>
+            <button onclick='unbind()'>解绑</button>
+        </p>
+    </div>
+    <script type="text/javascript">
+        function unbind() {
+            vm.$destroy();
+        }
+
+        Vue.directive('jspang1', {
+            bind: function (el, binding, vnode) {//被绑定
+                /**
+                var s = JSON.stringify;
+                el.innerHTML =
+                    'name:' + s(binding.name) + '<br>' +
+                    'value:' + s(binding.value) + '<br>' +
+                    'expression:' + s(binding.expression) + '<br>';
+                **/
+                // console.log(el.innerHTML);
+                el.style = 'color:' + binding.value;
+                console.log('1 - bind');
+            },
+            inserted: function () {//绑定到节点
+                console.log('2 - inserted');
+            },
+            update: function () {//组件更新
+                console.log('3 - update');
+            },
+            componentUpdated: function () {//组件更新完成
+                console.log('4 - componentUpdated');
+            },
+            unbind: function () {//解绑
+                console.log('5 - unbind');
+            }
+
+        })
+        var vm = new Vue({
+            el: '#app2',
+            data: {
+                num: 1,
+                color6: 'green'
+            },
+            methods: {
+                add: function () {
+                    this.num = this.num + 2
+                }
+            },
+
+        })
+    </script>
+
+
+    <h1>Vue.extend 扩展实例构造器</h1>
+    <author1></author1>
+    <script type="text/javascript">
+        // 扩展实例构造器
+        var authorExtend = Vue.extend({
+            template: "<p><a :href='authorUrl' target='_blank'>{{authorName}}</a></p>",
+            data: function () {
+                return {
+                    authorName: 'JSPang',
+                    authorUrl: 'http://www.jspang.com'
+                }
+            }
+        });
+        //挂载实例构造器
+        new authorExtend().$mount('author1');
+        //挂载到html标签的属性上: id,class
+        // new authorExtend().$mount('#author1');
+    </script>
+
+
+    <h1>Vue.set全局操作</h1>
+    <div id="app3">
+        <p>{{datat.count}}=={{datat.goodName}}</p>
+        <button onclick="add()">改变外部数据值</button>
+    </div>
+    <script type="text/javascript">
+        //改变外部数据
+        function add() {
+            // Vue.set(outData, 'count', 4);
+            // vm.count++;
+            outData.count++;
+        }
+        //在构造器外部声明数据
+        var outData = {
+            count: 1,
+            goodName: 'car'
+        };
+        var vm = new Vue({
+            el: '#app3',
+            data: {
+                //引用外部数据
+                datat: outData
+            }
+        })
+    </script>
+
+
+
+    <h1>Vue.set全局操作实例</h1>
+    <div id="app4">
+        <ul>
+            <li v-for=" aa in arr">{{aa}}</li>
+        </ul>
+        <button onclick="add()">外部添加</button>
+    </div>
+    <script type="text/javascript">
+        function add() {
+            console.log("我已经执行了");
+            // vm.arr[1]='aaa';
+            // Vue.set(outData.arr,1,'fff');
+            Vue.set(vm.arr, 1, 'hhh');
+        }
+
+        var outData = {
+            arr: ['aaa', 'bbb', 'ccc']
+        };
+        var vm = new Vue({
+            el: '#app4',
+            data: outData
+        })
+    </script>
+
+
+
+    < <h1>构造器的声明周期</h1>
+        <div id="app5">
+            {{message}}
+            <p><button @click="jia">加分</button></p>
+            <p><button onclick="vm.$destroy()">销毁</button></p>
+        </div>
+        <script type="text/javascript">
+            var vm = new Vue({
+                el: '#app5',
+                data: {
+                    message: 10
+                },
+                methods: {
+                    jia: function () {
+                        this.message++;
+                    }
+                },
+                beforeCreate: function () {
+                    console.log('1-beforeCreate 初始化之后');
+                },
+                created: function () {
+                    console.log('2-created 创建完成');
+                },
+                beforeMount: function () {
+                    console.log('3-beforeMount 挂载之前');
+                },
+                mounted: function () {
+                    console.log('4-mounted 被创建');
+                },
+                beforeUpdate: function () {
+                    console.log('5-beforeUpdate 数据更新前');
+                },
+                updated: function () {
+                    console.log('6-updated 被更新后');
+                },
+                activated: function () {
+                    console.log('7-activated');
+                },
+                deactivated: function () {
+                    console.log('8-deactivated');
+                },
+                beforeDestroy: function () {
+                    console.log('9-beforeDestroy 销毁之前');
+                },
+                destroyed: function () {
+                    console.log('10-destroyed 销毁之后')
+                }
+            })
+        </script>
+
+        <h1>template制作模板</h1>
+        <div id="app6">
+            <template id="demo2">
+                <h2 style="color:red">我是template标签模板哈哈</h2>
+            </template>
+
+            <!--script标签模板-->
+            <script type="x-template" id="demo3">
+             <h1 style="color:red">我是script标签模板</h1>
+            </script>
+        </div>
+        <script type="text/javascript">
+            var vm = new Vue({
+                el: '#app6',
+                data: {
+
+                },
+                // template: `<h1 style="color:red">我是选项模板888</h1>`,
+                // template: '#demo2'
+                template: '#demo3'
+            })
+        </script>
+
+        <h1>全局化注册组件 component-1</h1>
+        <div id="app7">
+            <jspang></jspang>
+            <pandan></pandan>
+        </div>
+        <script type="text/javascript">
+            //全局化注册组件
+            Vue.component('jspang', {
+                template: `<div style="color:red">全局化注册的jspang标签</div>`
+            })
+            var vm = new Vue({
+                el: '#app7',
+                data: {
+
+                },
+                //局部注册组件
+                components: {
+                    "pandan": {
+                        template: `<div style="color:red;">局部注册的panda标签</div>`
+                    }
+                }
+            })
+        </script>
+
+
+        <h1>定义组件属性</h1>
+        <div id="app8">
+            <panda here="中国" from-aa="云南啊"></panda>
+        </div>
+        <script type="text/javascript">
+            var vm = new Vue({
+                el: '#app8',
+                data: {
+
+                },
+                components: {
+                    "panda": {
+                        template: `<div style="color:red;">Panda from {{ here }}的{{fromAa}}.</div>`,
+                        props: ['here', 'fromAa']
+                    }
+                }
+            })
+        </script>
+
+        <h1>构造器往组件传值</h1>
+        <div id="app9">
+            <panda v-bind:here="message"></panda>
+            <panda :here="message"></panda>
+        </div>
+        <script type="text/javascript">
+            var vm = new Vue({
+                el: '#app9',
+                data: {
+                    message: 'SiChuan'
+                },
+                components: {
+                    "panda": {
+                        template: `<div style="color:red;">Panda from {{ here }}.</div>`,
+                        props: ['here']
+                    }
+                }
+            })
+        </script>
+
+
+        <h1>父子组件关系</h1>
+        <div id="app10">
+            <aaaa></aaaa>
+        </div>
+        <script type="text/javascript">
+            var jspang = {
+                template: `<div>Panda from China0000!</div>`
+            }
+            var vm = new Vue({
+                el: '#app10',
+                data: {
+
+                },
+                components: {
+                    "aaaa": jspang
+                }
+            })
+        </script>
+
+        <h1>父子组件嵌套</h1>
+        <div id="app11">
+            <sss></sss>
+        </div>
+        <script type="text/javascript">
+            var city = {
+                template: `<div>Sichuan of China</div>`
+            }
+            var jspang = {
+                template: `<div>
+                    <p> Panda from China!</p>
+                    <city55></city55>
+                    </div>`,
+                components: {
+                    "city55": city
+                }
+            }
+            var vm = new Vue({
+                el: '#app11',
+                data: {
+
+                },
+                components: {
+                    "sss": jspang
+                }
+            })
+        </script>
+
+        <h1>根据条件选择组件</h1>
+        <div id="app12">
+            <component :is="who"></component>
+            <button @click="change">改变组件</button>
+        </div>
+        <script type="text/javascript">
+            var a = {
+                template: `<div>组件a</div>`
+            }
+            var b = {
+                template: `<div>组件b</div>`
+            }
+            var c = {
+                template: `<div>组件c</div>`
+            }
+
+            var vm = new Vue({
+                el: '#app12',
+                data: {
+                    "who": "w"
+                },
+                components: {
+                    "q": a,
+                    "w": b,
+                    "e": c
+                },
+                methods: {
+                    "change": function () {
+                        if (this.who == 'q') {
+                            this.who = 'w';
+                        } else if (this.who == 'w') {
+                            this.who = 'e';
+                        } else {
+                            this.who = 'q';
+                        }
+                    }
+                }
+            })
+        </script>
+
+        <!-- <h1>####</h1>
+    <div id="app">
+
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            }
+        })
+    </script> -->
+</body>
+
+</html>
