@@ -1,0 +1,133 @@
+<html lang="en">
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="./assets/js/vue.js"></script>
+    <script type="text/javascript" src="./assets/js/jquery-3.6.0.js"></script>
+    <title>【第三季】Vue2.0视频教程-选项（共6集）</title>
+</head>
+
+<body>
+    <h1>Vue和Jquery.js一起使用</h1>
+    <div id="app1">
+        <!-- {{message}}     -->
+        90
+        <!-- <P><button @click="add">方法</button></P> -->
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app1',
+            data: {
+                message: "你好这个世界"
+            },
+            mounted: function () {
+                //在Vue中使用jQuery
+                // $('#app').html("我是jQuery!6")
+            },
+            methods: {
+                add: function () {
+                    console.log("调用了Add方法");
+
+                }
+            }
+        })
+        console.log(vm);
+        vm.add();
+    </script>
+
+    <h1>$mount方法,挂载扩展用的</h1>
+    <div id="app2">
+        <!-- {{mess}} -->
+    </div>
+    <p><button onclick="destroy()">卸载</button></p>
+    <p><button onclick="forceUpdate()">刷新</button></p>
+    <p><button onclick="tick()">修改</button></p>
+    <script type="text/javascript">
+        // var vm = new Vue({
+        //     el: '#app2',
+        //     data: {
+        //     }
+        // })
+
+        var jj = Vue.extend({
+            template: `<p>{{mess}}--{{me}}</p>`,
+            data: function () {
+                return {
+                    mess: "年后啊",
+                    me: "再说吧",
+                }
+            },
+            destroyed: function () {
+                console.log('10-destroyed 销毁之后');
+            },
+            mounted: function () {
+                console.log("4-mounted 被创建");
+            },
+            updated: function () {
+                console.log("6-updated 被更新后");
+            },
+            beforeUpdate: function () {
+                console.log("5,数据更新前");
+            }
+        })
+
+        var aa = new jj().$mount("#app2")
+        //卸载挂载的
+        function destroy() {
+            console.log(1),
+                aa.$destroy();
+        }
+        //更新
+        function forceUpdate() {
+            aa.$forceUpdate()
+        }
+
+        function tick() {
+            aa.mess = "111 ",
+                aa.me = "222 ",
+                aa.$nextTick(function () {
+                    console.log('message更新完后我被调用了');
+                })
+        }
+    </script>
+
+    <h1>内置组件 -slot讲解</h1>
+    <div id="app3">
+          <jk>
+              <span slot="address">{{jspangData.bolgUrl}}</span>
+              <span slot="name">{{jspangData.netName}}</span>
+              <span slot="skill">{{jspangData.skill}}</span>
+          </jk>
+    </div>
+
+    <template id="ss">
+          <div>
+              <p>博客地址7: <slot name="address"></slot></p>
+              <p>网名8: <slot name="name"></slot></p>
+              <p>技术9:<slot name="skill"></slot></p>
+          </div>
+    </template>
+
+    <script type="text/javascript">
+        var j = {
+            template: '#ss'
+        }
+        var vm = new Vue({
+            el: '#app3',
+            data: {
+                jspangData: {
+                    bolgUrl: 'http://jspang.com',
+                    netName: '技术胖',
+                    skill: 'Web前端'
+                }
+            },
+            components: {
+                jk: j
+            }
+        })
+
+    </script>
+</body>
+
+</html>
