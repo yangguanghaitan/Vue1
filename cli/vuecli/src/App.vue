@@ -10,6 +10,7 @@
     <!-- <p>我是传过来的参数{{ $route.name}}</p> -->
     <router-link to="/params/198/jspang website is very good">params</router-link>
     <router-link to="/bwed/000000/333333">重定向到params</router-link>
+    <router-link to="/uuu/11111/5555">alias实现重定向到</router-link>
   </p>
     <img src="./assets/logo.png">
     <router-view/>

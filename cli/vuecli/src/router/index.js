@@ -41,7 +41,8 @@ export default new Router({
     {
       // 支持正则，表示newsId为数字  path:'/params/:newsId(\\d+)/:newsTitle',
       path:'/params/:newsId/:newsTitle',
-       component:pp
+       component:pp,
+       alias:'/uuu/:newsId/:newsTitle',
   },
   {
     path:'/bwed/:newsId/:newsTitle',
