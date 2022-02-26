@@ -15,6 +15,8 @@ import Error from '@/components/Error'
 Vue.use(Router)
 
 export default new Router({
+  // hash
+  mode:'history',
   routes: [
     {
       path: '/',
