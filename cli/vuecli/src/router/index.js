@@ -12,6 +12,8 @@ import pp from '@/components/params'
 
 import Error from '@/components/Error'
 
+import count from '@/components/count'
+
 Vue.use(Router)
 
 export default new Router({
@@ -62,6 +64,10 @@ export default new Router({
     {
       path: '*',
       component: Error
-    }
+    },
+    {
+      path: '/Vuex',
+      component: count
+    },
   ]
 })

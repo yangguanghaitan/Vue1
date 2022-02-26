@@ -12,6 +12,7 @@
     <router-link to="/bwed/000000/333333">重定向到params</router-link>
     <router-link to="/uuu/11111/5555">alias实现重定向到</router-link>
     <router-link to="/hjk">找不到路径</router-link>
+    <router-link to="/vuex">Vuex小Demo</router-link>
     <button @click="goback">后退</button>
     <button @click="goHome">回到首页</button>
   </p>
