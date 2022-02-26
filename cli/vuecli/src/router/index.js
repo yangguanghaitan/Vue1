@@ -16,7 +16,7 @@ Vue.use(Router)
 
 export default new Router({
   // hash
-  mode:'history',
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -27,35 +27,41 @@ export default new Router({
       path: '/hi',
       name: 'HI',
       component: bb,
-      children:[
+      children: [
         // {path:'/',component:bb},
-        {path:'hi1',component:bb1,name:'1111'},
-        {path:'hi2',component:bb2,name:'2222'},
+        { path: 'hi1', component: bb1, name: '1111' },
+        { path: 'hi2', component: bb2, name: '2222' },
       ]
     },
     {
       path: '/display',
       name: 'wwww',
       components: {
-         default:bb,
-         left:dd1,
-         right:dd2,
+        default: bb,
+        left: dd1,
+        right: dd2,
       }
-    }, 
+    },
     {
       // 支持正则，表示newsId为数字  path:'/params/:newsId(\\d+)/:newsTitle',
-      path:'/params/:newsId/:newsTitle',
-       component:pp,
-       alias:'/uuu/:newsId/:newsTitle',
-  },
-  {
-    path:'/bwed/:newsId/:newsTitle',
-    name:'444',
-    redirect:'/params/:newsId/:newsTitle'
-  },
-  {
-    path:'*',
-    component:Error
-  }
+      path: '/params/:newsId/:newsTitle',
+      component: pp,
+      alias: '/uuu/:newsId/:newsTitle',
+      beforeEnter: (to, from, next) => {
+        console.log('我进入了params模板');
+        console.log(to);
+        console.log(from);
+        next();
+      }
+    },
+    {
+      path: '/bwed/:newsId/:newsTitle',
+      name: '444',
+      redirect: '/params/:newsId/:newsTitle'
+    },
+    {
+      path: '*',
+      component: Error
+    }
   ]
 })
