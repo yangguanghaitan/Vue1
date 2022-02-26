@@ -8,6 +8,7 @@
     <router-link :to="{name:'2222',params:{username:'彭于晏',age:44}}">HI2页面</router-link>
     <router-link :to="{name:'wwww'}">单页面多路由区域操作</router-link>
     <!-- <p>我是传过来的参数{{ $route.name}}</p> -->
+    <router-link to="/params/198/jspang website is very good">params</router-link>
   </p>
     <img src="./assets/logo.png">
     <router-view/>

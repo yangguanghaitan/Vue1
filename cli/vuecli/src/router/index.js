@@ -8,6 +8,8 @@ import bb2 from '@/components/HI2'
 import dd1 from '@/components/display1'
 import dd2 from '@/components/display2'
 
+import pp from '@/components/params'
+
 Vue.use(Router)
 
 export default new Router({
@@ -36,5 +38,10 @@ export default new Router({
          right:dd2,
       }
     }, 
+    {
+      // 支持正则，表示newsId为数字  path:'/params/:newsId(\\d+)/:newsTitle',
+      path:'/params/:newsId/:newsTitle',
+       component:pp
+  }
   ]
 })
