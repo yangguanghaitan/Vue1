@@ -1,18 +1,15 @@
 <template>
  <div>
- <h1>hi,大家好,我是{{name}}</h1>
-
-<!-- 给子模板提供插入位置 -->
- <router-view class="qq"></router-view>
+    <h1>hi,大家好,我是{{name}}</h1>
  </div>
 </template>
 
 <script>
  export default {
-   name:'aa',
+   name:'hi1',
    data () {
      return {
-        name:"刘德华,周杰伦"
+        name:"hi1111111"
      }
    },
    computed:{
@@ -28,9 +25,5 @@
 </script>
 
 <style scoped>
-  .qq{
-    color: red;
-  }
  
 </style>
-
