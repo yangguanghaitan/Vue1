@@ -20,8 +20,8 @@ export default new Router({
       component: bb,
       children:[
         // {path:'/',component:bb},
-        {path:'hi1',component:bb1},
-        {path:'hi2',component:bb2},
+        {path:'hi1',component:bb1,name:'1111'},
+        {path:'hi2',component:bb2,name:'2222'},
       ]
     },
   ]

@@ -1,6 +1,8 @@
 <template>
  <div>
  <h1>hi,大家好,我是{{name}}</h1>
+ <!--路由里的name，通过$route.name传参  -->
+ <p>我是传过来的参数{{ $route.name}}</p>
 
 <!-- 给子模板提供插入位置 -->
  <router-view class="qq"></router-view>
