@@ -1,6 +1,7 @@
 <template>
     <div>
        <h1>hi,大家好,我是{{name}}</h1>
+       <P>{{$route.params.username}}={{$route.params.age}}</P>
     </div>
    </template>
    
