@@ -4,7 +4,7 @@
 2. vue init <template-name> <project-name>/vue init webpack vuecliTest:用vue-cli初始化项目，中间会选择安装vue-router插件
    (npm install vue-router --save-dev vue-router安装)
 3. npm run build:打包生成dist文件夹,文件夹里边就是我们要传到服务器上的文件。相当于package.json文件的scripts字段中build选项。
-4. 
+4. npm install vuex --save:安装vuex，一个状态管理器
 
 ###################以下为自动生成的
 # vuecli
