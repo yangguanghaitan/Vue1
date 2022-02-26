@@ -12,6 +12,8 @@
     <router-link to="/bwed/000000/333333">重定向到params</router-link>
     <router-link to="/uuu/11111/5555">alias实现重定向到</router-link>
     <router-link to="/hjk">找不到路径</router-link>
+    <button @click="goback">后退</button>
+    <button @click="goHome">回到首页</button>
   </p>
     <img src="./assets/logo.png">
     <router-view/>
@@ -22,7 +24,15 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  methods: {
+    goback(){
+      this.$router.go(-1);
+    },
+    goHome(){
+      this.$router.push('/');
+    }
+  },
 }
 </script>
 
