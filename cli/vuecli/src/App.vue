@@ -1,5 +1,12 @@
 <template>
   <div id="app">
+    <p>
+      <!--添加导航条  -->
+    <router-link to="/">首页</router-link>
+    <router-link to="/hi">HI页面</router-link>
+    <!-- <router-link to="/hi/hi1">HI1页面</router-link>
+    <router-link to="/hi/hi2">HI2页面</router-link> -->
+  </p>
     <img src="./assets/logo.png">
     <router-view/>
   </div>
