@@ -42,6 +42,11 @@ export default new Router({
       // 支持正则，表示newsId为数字  path:'/params/:newsId(\\d+)/:newsTitle',
       path:'/params/:newsId/:newsTitle',
        component:pp
+  },
+  {
+    path:'/bwed/:newsId/:newsTitle',
+    name:'444',
+    redirect:'/params/:newsId/:newsTitle'
   }
   ]
 })
