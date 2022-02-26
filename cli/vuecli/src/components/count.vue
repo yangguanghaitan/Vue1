@@ -5,15 +5,18 @@
         <h3>第1种访问值的方式:{{$store.state.count}}=={{$store.state.num}}</h3>
         <h3>第2种访问值的方式:{{count}}</h3>
         <div>
-            <button @click="$store.commit('add')">+</button>
+            <button @click="$store.commit('add',5)">+</button>
             <button @click="$store.commit('reduce')">-</button>
+
+            <button @click="reduce">--</button>
+            <button @click="add(8)">++</button>
         </div>
     </div>
 </template>
 
 <script>
     import store from '@/vuex/store'
-    import { mapState } from 'vuex';
+    import { mapState,mapMutations } from 'vuex';
     export default {
         name: '',
         data() {
@@ -34,13 +37,15 @@
         computed: mapState({
             count: state => state.count
         }),
-        methods: {
-
-        },
+        methods: mapMutations([
+            'add', 'reduce'
+        ]),
         components: {
 
         },
     }
+
+
 </script>
 
 <style scoped>
