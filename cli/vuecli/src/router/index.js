@@ -10,6 +10,8 @@ import dd2 from '@/components/display2'
 
 import pp from '@/components/params'
 
+import Error from '@/components/Error'
+
 Vue.use(Router)
 
 export default new Router({
@@ -48,6 +50,10 @@ export default new Router({
     path:'/bwed/:newsId/:newsTitle',
     name:'444',
     redirect:'/params/:newsId/:newsTitle'
+  },
+  {
+    path:'*',
+    component:Error
   }
   ]
 })
