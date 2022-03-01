@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: "leftNav(独立的侧边栏)",
+  name: "leftNav",
   data() {
     return {};
   },
