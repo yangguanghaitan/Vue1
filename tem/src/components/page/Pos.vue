@@ -2,7 +2,7 @@
   <div class="pos">
     <!-- {{message}}
     <i class="icon iconfont  icon-canting1"></i> -->
-
+   
     <el-row>
       <!-- 左侧框架 -->
       <el-col v-bind:span="7" class="pos-order" id="order-list">
@@ -83,13 +83,15 @@
 </template>
 
 <script>
+  // const axios = require('axios').default;
+  import axios from 'axios';
   export default {
     name: 'Pos',
     data() {
       return {
         message: " Hello Pos Demo!",
         activeName: 'third',
-
+       
         tableData: [{
           goodsName: '可口可乐',
           price: 8,
@@ -224,15 +226,15 @@
       add() {
         alert(222)
       }
-    },
-    components: {
+    }, 
+      components: {
 
-    },
-    mounted: function () {
-      var orderHeight = document.body.clientHeight;
-      // console.log("orderHeight:" + orderHeight);
-      document.getElementById("order-list").style.height = orderHeight + 'px';
-    },
+  },
+  mounted: function () {
+    var orderHeight = document.body.clientHeight;
+    // console.log("orderHeight:" + orderHeight);
+    document.getElementById("order-list").style.height = orderHeight + 'px';
+   },
   }
 </script>
 

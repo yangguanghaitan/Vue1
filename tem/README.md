@@ -3,7 +3,7 @@
 > 2. 疑惑点: padding,margin
 1. npm install:安装package.json里项目的依赖包
 2. npm -n install element-ui --save:使用npm的方式安装element-ui，它能更好地和webpack打包工具配合使用
-3. 疑惑点:
+3. npm -n install axios --save:axios是需要打包到生产环境中的，所以我们使用–save来进行安装。
 
 
 
