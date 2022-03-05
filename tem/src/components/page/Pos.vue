@@ -2,7 +2,7 @@
   <div class="pos">
     <!-- {{message}}
     <i class="icon iconfont  icon-canting1"></i> -->
-   
+
     <el-row>
       <!-- 左侧框架 -->
       <el-col v-bind:span="7" class="pos-order" id="order-list">
@@ -45,7 +45,7 @@
           <div class="title">常用商品</div>
           <div class="often-goods-list">
             <ul>
-              <li v-for="good in oftenGoods">
+              <li v-for="good in oftenGoods" >
                 <!-- <p> -->
                 <span>{{good.goodsName}}</span>
                 <span class="o-price">￥{{good.price}}元</span>
@@ -56,8 +56,8 @@
         </div>
 
         <div class="goods-type">
-          <el-tabs type="border-card">
-            <el-tab-pane label="汉堡">
+          <el-tabs type="border-card" v-model="activeGoodsType" @tab-click="showHanBao">
+            <el-tab-pane label="汉堡" name="hanbao">
               <ul class='cookList'>
                 <li>
                   <span class="foodImg"><img src="../../assets/logo.png" width="100%"></span>
@@ -71,9 +71,9 @@
                 </li>
               </ul>
             </el-tab-pane>
-            <el-tab-pane label="小食">配置管理</el-tab-pane>
-            <el-tab-pane label="饮料">角色管理</el-tab-pane>
-            <el-tab-pane label="套餐">套餐</el-tab-pane>
+            <el-tab-pane label="小食" name="xiaoshi" >配置管理</el-tab-pane>
+            <el-tab-pane label="饮料" name="yinliao">角色管理</el-tab-pane>
+            <el-tab-pane label="套餐" name="taocan">套餐</el-tab-pane>
           </el-tabs>
         </div>
 
@@ -85,13 +85,27 @@
 <script>
   // const axios = require('axios').default;
   import axios from 'axios';
+  const instance = axios.create({
+    baseURL: 'http://localhost:8088',
+    timeout: 1000,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild'
+    }
+  });
   export default {
     name: 'Pos',
     data() {
       return {
         message: " Hello Pos Demo!",
         activeName: 'third',
-       
+        activeGoodsType: 'xiaoshi',
+        errored: false,
+        loading: true,
+        // aa: null,
+        oftenGoods: [],
+        type0Goods: [],
+
         tableData: [{
           goodsName: '可口可乐',
           price: 8,
@@ -112,105 +126,6 @@
           price: 8,
           count: 1
         }],
-
-        oftenGoods: [
-          {
-            goodsId: 1,
-            goodsName: '香辣鸡腿堡',
-            price: 18
-          }, {
-            goodsId: 2,
-            goodsName: '田园鸡腿堡',
-            price: 15
-          }, {
-            goodsId: 3,
-            goodsName: '和风汉堡',
-            price: 15
-          }, {
-            goodsId: 4,
-            goodsName: '快乐全家桶',
-            price: 80
-          }, {
-            goodsId: 5,
-            goodsName: '脆皮炸鸡腿',
-            price: 10
-          }, {
-            goodsId: 6,
-            goodsName: '魔法鸡块',
-            price: 20
-          }, {
-            goodsId: 7,
-            goodsName: '可乐大杯',
-            price: 10
-          }, {
-            goodsId: 8,
-            goodsName: '雪顶咖啡',
-            price: 18
-          }, {
-            goodsId: 9,
-            goodsName: '大块鸡米花',
-            price: 15
-          }, {
-            goodsId: 20,
-            goodsName: '香脆鸡柳',
-            price: 17
-          }
-        ],
-
-        type0Goods: [
-          {
-            goodsId: 1,
-            goodsImg: "http://g.hiphotos.baidu.com/image/pic/item/6d81800a19d8bc3e770bd00d868ba61ea9d345f2.jpg",
-            goodsName: '香辣鸡腿堡',
-            price: 18
-          }, {
-            goodsId: 2,
-            goodsImg: "http://b.hiphotos.baidu.com/image/pic/item/e824b899a9014c08878b2c4c0e7b02087af4f4a3.jpg",
-            goodsName: '田园鸡腿堡',
-            price: 15
-          }, {
-            goodsId: 3,
-            goodsImg: "http://c.hiphotos.baidu.com/image/pic/item/30adcbef76094b36de8a2fe5a1cc7cd98d109d99.jpg",
-            goodsName: '和风汉堡',
-            price: 15
-          }, {
-            goodsId: 4,
-            goodsImg: "http://e.hiphotos.baidu.com/image/pic/item/4bed2e738bd4b31c1badd5a685d6277f9e2ff81e.jpg",
-            goodsName: '快乐全家桶',
-            price: 80
-          }, {
-            goodsId: 5,
-            goodsImg: "http://g.hiphotos.baidu.com/image/pic/item/0d338744ebf81a4c87a3add4d52a6059252da61e.jpg",
-            goodsName: '脆皮炸鸡腿',
-            price: 10
-          }, {
-            goodsId: 6,
-            goodsImg: "http://a.hiphotos.baidu.com/image/pic/item/f2deb48f8c5494ee5080c8142ff5e0fe99257e19.jpg",
-            goodsName: '魔法鸡块',
-            price: 20
-          }, {
-            goodsId: 7,
-            goodsImg: "http://f.hiphotos.baidu.com/image/pic/item/4034970a304e251f503521f5a586c9177e3e53f9.jpg",
-            goodsName: '可乐大杯',
-            price: 10
-          }, {
-            goodsId: 8,
-            goodsImg: "http://a.hiphotos.baidu.com/image/pic/item/e824b899a9014c087eb617650e7b02087af4f464.jpg",
-            goodsName: '雪顶咖啡',
-            price: 18
-          }, {
-            goodsId: 9,
-            goodsImg: "http://d.hiphotos.baidu.com/image/pic/item/b58f8c5494eef01f119945cbe2fe9925bc317d2a.jpg",
-            goodsName: '大块鸡米花',
-            price: 15
-          }, {
-            goodsId: 20,
-            goodsImg: "http://a.hiphotos.baidu.com/image/pic/item/8d5494eef01f3a292d2472199d25bc315d607c7c.jpg",
-            goodsName: '香脆鸡柳',
-            price: 17
-          }
-
-        ],
       }
     },
     computed: {
@@ -221,20 +136,64 @@
         console.log(tab, event);
       },
       del() {
-        alert(111)
+        /*   axios
+            .get('http://localhost:8088/article/12/')
+            .then(response => {
+              this.aa = response.data
+            })
+            .catch(error => {
+              console.log(error)
+              this.errored = true
+            })
+            .finally(() => this.loading = false);
+          console.log("this.aa=" + this.aa); */
+        alert(111);
       },
       add() {
         alert(222)
-      }
-    }, 
-      components: {
+      },
+      showHanBao() {
+        //获取汉堡分类小商品
+        axios.get('http://localhost:8088/vue/type0Goods/')
+          .then(response => {
+            this.type0Goods = response.data.type0Goods;
+          })
+          .catch(error => {
+            console.log(error)
+            this.errored = true
+          })
+          .finally(() => this.loading = false);
+      },
+      // //添加商品
+      // addOrderList:function(){
+      //   alert()88
+      // }
 
-  },
-  mounted: function () {
-    var orderHeight = document.body.clientHeight;
-    // console.log("orderHeight:" + orderHeight);
-    document.getElementById("order-list").style.height = orderHeight + 'px';
-   },
+    },
+    components: {
+
+    },
+    mounted: function () {
+      var orderHeight = document.body.clientHeight;
+      // console.log("orderHeight:" + orderHeight);
+      document.getElementById("order-list").style.height = orderHeight + 'px';
+    },
+
+    created: function () {
+      //获取常用食品
+      axios.get('http://localhost:8088/vue/oftenGoods/')
+        .then(response => {
+          //console.log()显示为对象，看不到数据
+          this.oftenGoods = response.data.oftenGoods;
+          //console.log()显示为json字符串，可以看到数据 JSON.parse(jsonString);
+          this.oftenGoods1 = JSON.stringify(response.data.oftenGoods);
+        })
+        .catch(error => {
+          console.log(error)
+          this.errored = true
+        })
+        .finally(() => this.loading = false);
+    },
   }
 </script>
 
