@@ -219,6 +219,7 @@
     padding: 10px;
     margin: 5px;
     background-color: #fff;
+    cursor: pointer;
   }
 
   .o-price {
@@ -244,6 +245,7 @@
     padding: 2px;
     float: left;
     margin: 2px;
+    cursor: pointer;
 
   }
 
