@@ -7,6 +7,11 @@
 2. npm -n install element-ui --save:使用npm的方式安装element-ui，它能更好地和webpack打包工具配合使用
 3. npm -n install axios --save:axios是需要打包到生产环境中的，所以我们使用–save来进行安装。
 
+---
+>偏前端
+1. **src**:\<a href="www.xxx.com"><\img src="1.jpg"></a> src是替换,会自动发送请求;引入js(如 \<script th:src="@{/js/jquery.min.js}"></script>)
+2. **href**:href是连接 ;引入css(如\<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>")
+3. ajax: 主要操作XmlHttpRequest,发送异步请求,jquery可以让HTML文档遍历和操作、事件处理、动画等等Javascript的内容和Ajax操作更加简单
 
 
 
