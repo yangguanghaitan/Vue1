@@ -12,6 +12,7 @@
 1. **src**:\<a href="www.xxx.com"><\img src="1.jpg"></a> src是替换,会自动发送请求;引入js(如 \<script th:src="@{/js/jquery.min.js}"></script>)
 2. **href**:href是连接 ;引入css(如\<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>")
 3. ajax: 主要操作XmlHttpRequest,发送异步请求,jquery可以让HTML文档遍历和操作、事件处理、动画等等Javascript的内容和Ajax操作更加简单
+4. alt与title: alt可以发挥title，但主要是用来在值显示不出来时作为替代的，title是提示用的
 
 
 
