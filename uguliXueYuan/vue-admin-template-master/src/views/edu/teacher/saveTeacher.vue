@@ -27,7 +27,33 @@
       <el-form-item label="讲师简介">
         <el-input v-model="teacher.intro" :rows="10" type="textarea" />
       </el-form-item>
-      <!-- 讲师头像：TODO -->
+
+      <!-- 讲师头像 -->
+      <el-form-item label="讲师头像啊">
+        <!-- 头衔缩略图 -->
+        <pan-thumb :image="teacher.avatar" />
+        <!-- 文件上传按钮 -->
+        <el-button type="primary" icon="el-icon-upload" @click="imagecropperShow=true">更换头像
+        </el-button>
+
+        <!--
+        v-show：是否显示上传组件
+        :key：类似于id，如果一个页面多个图片上传控件，可以做区分
+        :url：后台上传的url地址
+        @close：关闭上传组件
+        @crop-upload-success：上传成功后的回调 -->
+        <image-cropper 
+            v-show="imagecropperShow" 
+            :width="300" 
+            :height="300" 
+            :key="imagecropperKey"
+            :url="BASE_API+'/ossService/oss/updateAvatar'" 
+            field="file1" 
+            @close="close" 
+            @crop-upload-success="cropSuccess" />
+      </el-form-item>
+
+
       <el-form-item>
         <el-button :disabled="saveBtnDisabled" type="primary" @click="saveOrUpdate">保存</el-button>
       </el-form-item>
@@ -37,6 +63,9 @@
 
 <script>
   import teacher from '@/api/edu/teacher'
+  //导入头像插件
+  import ImageCropper from '@/components/ImageCropper'
+  import PanThumb from '@/components/PanThumb'
 
   const defaultForm = {
     name: '',
@@ -48,10 +77,14 @@
   }
 
   export default {
+    components:{ImageCropper,PanThumb},
     data() {
       return {
         teacher: defaultForm,
-        saveBtnDisabled: false
+        saveBtnDisabled: false,
+        imagecropperShow:false,
+        BASE_API:process.env.BASE_API,//获取统一的路径即BASE_API: '"http://localhost:9090"'
+        imagecropperKey:0 //头像上传组件id
       }
     },
     created() {
@@ -119,10 +152,23 @@
           this.getTeacherById(id)
         } else {
           // this.teacher = defaultForm//这种是引用，不行
-        // 使用对象拓展运算符，拷贝对象，而不是引用，
-        // 否则新增一条记录后，defaultForm就变成了之前新增的teacher的值
-          this.teacher = {...defaultForm}
+          // 使用对象拓展运算符，拷贝对象，而不是引用，
+          // 否则新增一条记录后，defaultForm就变成了之前新增的teacher的值
+          this.teacher = { ...defaultForm }
         }
+      },
+      //上传头像关闭弹框
+      close(){
+          this.imagecropperShow=false
+          // 上传失败后，重新打开上传组件时初始化组件，否则显示上一次的上传结果
+          this.imagecropperKey = this.imagecropperKey + 1
+      },
+      //点击保存上传头像成功
+      cropSuccess(data){
+        this.imagecropperShow=false
+        this.teacher.avatar=data.avatarUrl
+        // 上传失败后，重新打开上传组件时初始化组件，否则显示上一次的上传结果
+        this.imagecropperKey = this.imagecropperKey + 1
       }
     }
   }
