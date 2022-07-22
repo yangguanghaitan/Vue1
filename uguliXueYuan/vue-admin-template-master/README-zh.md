@@ -1,5 +1,53 @@
 # vue-admin-template
 
+## 开发中的问题 
+1. springbboot如何接受此种类型的数据 data:{
+  teacherQuery
+}，
+data: teacherQuery 这种可以用@RequestBody介绍，且与参数名无关
+2. api包下面的js文件依赖于/utils/request.js(封装了请求和响应的统一处理)，而他自己依赖于/config/dev.env.js文件中的BASE_API，请求域名
+3. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 > 这是一个 极简的 vue admin 管理后台 它只包含了 Element UI & axios & iconfont & permission control & lint，这些搭建后台必要的东西。
 
 [线上地址](http://panjiachen.github.io/vue-admin-template)
