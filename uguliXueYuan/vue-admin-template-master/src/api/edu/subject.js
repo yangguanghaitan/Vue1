@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-const api_name = '/eduservice/subject'
+const api_name = '/eduService/subject'
 
 export default {
 
